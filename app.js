@@ -16,8 +16,10 @@ var LocalStrategy  = require('passport-local'),
 var campgroundRoutes = require('./routes/campgrounds'),
     commentRoutes    = require('./routes/comments'),
     indexRoutes      = require('./routes/index');
-    
-mongoose.connect('mongodb://MTRojas:12Arandano@ds163630.mlab.com:63630/yelpcamp', { useNewUrlParser: true }); 
+
+console.log(process.env.DB);
+mongoose.connect(process.env.DB, { useNewUrlParser: true });   
+//mongoose.connect('mongodb://MTRojas:12Arandano@ds163630.mlab.com:63630/yelpcamp', { useNewUrlParser: true }); 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));

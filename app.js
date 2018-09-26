@@ -30,6 +30,8 @@ app.use(methodOverride('_method'));
 app.use(flash());
 //seedDB();
 
+app.locals.moment = require('moment');
+
 //PASSPORT CONFIGURATION
 app.use(session({
   secret: 'yelp_camp',
@@ -41,6 +43,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
 
 //IMPORTANT MIDDLEWARE THAT MAKES THE USER AVAILABLE EVERYWHERE!!!!! AND THAT WILL RUN FOR EVERY SINGLE ROUTE
 app.use(function(req, res, next) {

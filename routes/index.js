@@ -17,6 +17,12 @@ router.get('/register', function(req, res) {
 //handle signup logic
 router.post('/register', function(req, res) {
   var newUser = new User({username: req.body.username});
+  //locus is a npm package that allows us to stop the code whenever 
+  //it hits this point in the route and then we can take a look at whats going on, we can see the variables available to us
+  //eval(require('locus')); 
+  if (req.body.adminCode === 'secretcode123') {
+    newUser.isAdmin = true;
+  }
   User.register(newUser, req.body.password, function(err, user) {
     if(err) {
       console.log(err);
@@ -37,7 +43,9 @@ router.get('/login', function(req, res) {
 //handle login logic
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/campgrounds',
-  failureRedirect: '/login'
+  failureRedirect: '/login',
+  failureFlash: true,
+  successFlash: 'Welcome to YelpCamp!'
   }), function(req, res) {
 });
 

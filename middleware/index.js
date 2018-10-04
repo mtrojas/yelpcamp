@@ -14,7 +14,7 @@ middlewareObj.checkCampgroundOwnership = function(req, res, next) {
         //console.log(foundCampground.author.id); //mongoose object
         //console.log(req.user._id); //string
         //in order to compare them, mongose has the .equals method that mongoose has for this purpose
-        if(foundCampground.author.id.equals(req.user._id)) {
+        if(foundCampground.author.id.equals(req.user._id) || req.user.isAdmin) {
           next();
         } else {    //if not equal , redirect
           req.flash('error', 'You don\'t have permission to do that');
@@ -39,7 +39,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next) {
         //console.log(foundCampground.author.id); //mongoose object
         //console.log(req.user._id); //string
         //in order to compare them, mongose has the .equals method that mongoose has for this purpose
-        if(foundComment.author.id.equals(req.user._id)) {
+        if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin) {
           next();
         } else {    //if not equal , redirect
           req.flash('error', 'You don\'t have permission to do that');
